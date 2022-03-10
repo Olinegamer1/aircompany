@@ -2,7 +2,7 @@ import Planes.ExperimentalPlane;
 import Planes.MilitaryPlane;
 import Planes.PassengerPlane;
 import Planes.Plane;
-import models.ClassificationLevel;
+import models.ClassificationSecrecyLevel;
 import models.ExperimentalTypes;
 import models.MilitaryType;
 import org.testng.Assert;
@@ -29,8 +29,8 @@ public class AirportTest {
             new MilitaryPlane("F-15", 1500, 12000, 10000, MilitaryType.FIGHTER),
             new MilitaryPlane("F-22", 1550, 13000, 11000, MilitaryType.FIGHTER),
             new MilitaryPlane("C-130 Hercules", 650, 5000, 110000, MilitaryType.TRANSPORT),
-            new ExperimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.HIGH_ALTITUDE, ClassificationLevel.SECRET),
-            new ExperimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.VTOL, ClassificationLevel.TOP_SECRET)
+            new ExperimentalPlane("Bell X-14", 277, 482, 500, ExperimentalTypes.HIGH_ALTITUDE, ClassificationSecrecyLevel.SECRET),
+            new ExperimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, ExperimentalTypes.VTOL, ClassificationSecrecyLevel.TOP_SECRET)
     );
 
     private static final Airport AIRPORT = new Airport(PLANES);
@@ -52,7 +52,7 @@ public class AirportTest {
     private boolean isClassificationLevelHigherThanUnclassified(List<ExperimentalPlane> experimentalPlanes) {
         return experimentalPlanes.stream()
                 .map(ExperimentalPlane::getClassificationLevel)
-                .allMatch(classificationLevel -> classificationLevel.ordinal() > ClassificationLevel.UNCLASSIFIED.ordinal());
+                .allMatch(classificationSecrecyLevel -> classificationSecrecyLevel.ordinal() > ClassificationSecrecyLevel.UNCLASSIFIED.ordinal());
     }
 
     @Test

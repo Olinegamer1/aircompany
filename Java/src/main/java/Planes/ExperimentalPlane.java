@@ -7,12 +7,12 @@ import java.util.Objects;
 
 public class ExperimentalPlane extends Plane {
 
-    private final ExperimentalTypes EXPERIMENTAL_TYPE;
+    private final ExperimentalTypes experimentalType;
     private ClassificationLevel classificationLevel;
 
     public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalTypes experimentalTypes, ClassificationLevel classificationLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.EXPERIMENTAL_TYPE = experimentalTypes;
+        this.experimentalType = experimentalTypes;
         this.classificationLevel = classificationLevel;
     }
 
@@ -30,12 +30,12 @@ public class ExperimentalPlane extends Plane {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ExperimentalPlane that = (ExperimentalPlane) o;
-        return EXPERIMENTAL_TYPE == that.EXPERIMENTAL_TYPE && getClassificationLevel() == that.getClassificationLevel();
+        return experimentalType == that.experimentalType && getClassificationLevel() == that.getClassificationLevel();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), EXPERIMENTAL_TYPE, getClassificationLevel());
+        return Objects.hash(super.hashCode(), experimentalType, getClassificationLevel());
     }
 
     @Override

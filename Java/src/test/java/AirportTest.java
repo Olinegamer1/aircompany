@@ -42,19 +42,6 @@ public class AirportTest {
             new MilitaryPlane("B-52 Stratofortress", 1000, 20000, 80000, MilitaryType.BOMBER)
     );
 
-    private boolean isSortedByMaxLoadCapacity(List<? extends Plane> planesSortedByMaxLoadCapacity) {
-        return planesSortedByMaxLoadCapacity.stream()
-                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))
-                .collect(Collectors.toList())
-                .equals(planesSortedByMaxLoadCapacity);
-    }
-
-    private boolean isClassificationLevelHigherThanUnclassified(List<ExperimentalPlane> experimentalPlanes) {
-        return experimentalPlanes.stream()
-                .map(ExperimentalPlane::getClassificationLevel)
-                .allMatch(classificationSecrecyLevel -> classificationSecrecyLevel.ordinal() > ClassificationSecrecyLevel.UNCLASSIFIED.ordinal());
-    }
-
     @Test
     public void testGetTransportMilitaryPlanes() {
         Assert.assertTrue(AIRPORT.getTransportMilitaryPlanes().contains(transportMilitaryPlane));
@@ -79,5 +66,18 @@ public class AirportTest {
     @Test
     public void testExperimentalPlanesHasClassificationLevelHigherThanUnclassified() {
         Assert.assertTrue(isClassificationLevelHigherThanUnclassified(AIRPORT.getExperimentalPlanes()));
+    }
+
+    private boolean isClassificationLevelHigherThanUnclassified(List<ExperimentalPlane> experimentalPlanes) {
+        return experimentalPlanes.stream()
+                .map(ExperimentalPlane::getClassificationLevel)
+                .allMatch(classificationSecrecyLevel -> classificationSecrecyLevel.ordinal() > ClassificationSecrecyLevel.UNCLASSIFIED.ordinal());
+    }
+
+    private boolean isSortedByMaxLoadCapacity(List<? extends Plane> planesSortedByMaxLoadCapacity) {
+        return planesSortedByMaxLoadCapacity.stream()
+                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))
+                .collect(Collectors.toList())
+                .equals(planesSortedByMaxLoadCapacity);
     }
 }

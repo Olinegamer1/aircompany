@@ -10,9 +10,10 @@ public class ExperimentalPlane extends Plane {
     private final ExperimentalTypes experimentalType;
     private ClassificationSecrecyLevel classificationSecrecyLevel;
 
-    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity, ExperimentalTypes experimentalTypes, ClassificationSecrecyLevel classificationSecrecyLevel) {
+    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity,
+                             ExperimentalTypes experimentalType, ClassificationSecrecyLevel classificationSecrecyLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.experimentalType = experimentalTypes;
+        this.experimentalType = experimentalType;
         this.classificationSecrecyLevel = classificationSecrecyLevel;
     }
 

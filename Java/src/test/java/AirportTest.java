@@ -8,10 +8,7 @@ import models.MilitaryType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class AirportTest {
     private static final List<Plane> PLANES = Arrays.asList(
@@ -55,7 +52,7 @@ public class AirportTest {
     @Test
     public void testSortedByMaxLoadCapacity() {
         AIRPORT.sortByMaxLoadCapacity();
-        Assert.assertTrue(isSortedByMaxLoadCapacity(AIRPORT.getPlanes()));
+        Assert.assertTrue(arePlanesSortedByMaxLoadCapacity(AIRPORT.getPlanes()));
     }
 
     @Test
@@ -74,10 +71,16 @@ public class AirportTest {
                 .allMatch(classificationSecrecyLevel -> classificationSecrecyLevel.ordinal() > ClassificationSecrecyLevel.UNCLASSIFIED.ordinal());
     }
 
-    private boolean isSortedByMaxLoadCapacity(List<? extends Plane> planesSortedByMaxLoadCapacity) {
-        return planesSortedByMaxLoadCapacity.stream()
-                .sorted(Comparator.comparingInt(Plane::getMaxLoadCapacity))
-                .collect(Collectors.toList())
-                .equals(planesSortedByMaxLoadCapacity);
+    private boolean arePlanesSortedByMaxLoadCapacity(List<? extends Plane> planesSortedByMaxLoadCapacity) {
+        int[] loadCapacityByPlanes = planesSortedByMaxLoadCapacity.stream()
+                .mapToInt(Plane::getMaxLoadCapacity)
+                .toArray();
+
+        for (int i = 0; i < loadCapacityByPlanes.length - 1; i++) {
+            if (loadCapacityByPlanes[i] > loadCapacityByPlanes[i + 1]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

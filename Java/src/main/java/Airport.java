@@ -20,23 +20,23 @@ public class Airport {
     }
 
     public List<PassengerPlane> getPassengerPlanes() {
-        return getTypePlanes(PassengerPlane.class);
+        return getPlanesByClass(PassengerPlane.class);
     }
 
     public List<MilitaryPlane> getMilitaryPlanes() {
-        return getTypePlanes(MilitaryPlane.class);
+        return getPlanesByClass(MilitaryPlane.class);
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
-        return getTypePlanes(ExperimentalPlane.class);
+        return getPlanesByClass(ExperimentalPlane.class);
     }
 
     public List<MilitaryPlane> getTransportMilitaryPlanes() {
-        return getTypeMilitaryPlanes(MilitaryType.TRANSPORT);
+        return getMilitaryPlanesByType(MilitaryType.TRANSPORT);
     }
 
     public List<MilitaryPlane> getBomberMilitaryPlanes() {
-        return getTypeMilitaryPlanes(MilitaryType.BOMBER);
+        return getMilitaryPlanesByType(MilitaryType.BOMBER);
     }
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
@@ -64,14 +64,14 @@ public class Airport {
                 '}';
     }
 
-    private <T extends Plane> List<T> getTypePlanes(Class<T> planeClass) {
+    private <T extends Plane> List<T> getPlanesByClass(Class<T> planeClass) {
         return planes.stream()
                 .filter(planeClass::isInstance)
                 .map(planeClass::cast)
                 .collect(Collectors.toList());
     }
 
-    private List<MilitaryPlane> getTypeMilitaryPlanes(MilitaryType militaryType) {
+    private List<MilitaryPlane> getMilitaryPlanesByType(MilitaryType militaryType) {
         return getMilitaryPlanes().stream()
                 .filter(militaryPlane -> militaryPlane.getMilitaryType() == militaryType)
                 .collect(Collectors.toList());

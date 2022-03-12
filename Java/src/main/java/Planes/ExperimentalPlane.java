@@ -1,17 +1,17 @@
 package Planes;
 
 import models.ClassificationSecrecyLevel;
-import models.ExperimentalTypes;
+import models.ExperimentalType;
 
 import java.util.Objects;
 
 public class ExperimentalPlane extends Plane {
 
-    private final ExperimentalTypes experimentalType;
+    private final ExperimentalType experimentalType;
     private ClassificationSecrecyLevel classificationSecrecyLevel;
 
     public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity,
-                             ExperimentalTypes experimentalType, ClassificationSecrecyLevel classificationSecrecyLevel) {
+                             ExperimentalType experimentalType, ClassificationSecrecyLevel classificationSecrecyLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
         this.experimentalType = experimentalType;
         this.classificationSecrecyLevel = classificationSecrecyLevel;

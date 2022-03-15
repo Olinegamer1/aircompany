@@ -7,15 +7,15 @@ import Planes.Plane;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Airport {
+public class Airport<T extends Plane> {
 
-    private final List<? extends Plane> planes;
+    private final List<T> planes;
 
-    public Airport(List<? extends Plane> planes) {
+    public Airport(List<T> planes) {
         this.planes = planes;
     }
 
-    public List<? extends Plane> getPlanes() {
+    public List<T> getPlanes() {
         return planes;
     }
 
@@ -45,16 +45,16 @@ public class Airport {
                 .orElse(null);
     }
 
-    public void sortByMaxDistance() {
-        planes.sort(Comparator.comparingInt(Plane::getMaxFlightDistance));
+    public Airport<T> sortByMaxDistance() {
+        return new Airport<>(sortByComparator(Comparator.comparingInt(Plane::getMaxFlightDistance)));
     }
 
-    public void sortByMaxSpeed() {
-        planes.sort(Comparator.comparingInt(Plane::getMaxSpeed));
+    public Airport<T> sortByMaxSpeed() {
+       return new Airport<>(sortByComparator(Comparator.comparingInt(Plane::getMaxSpeed)));
     }
 
-    public void sortByMaxLoadCapacity() {
-        planes.sort(Comparator.comparingInt(Plane::getMaxLoadCapacity));
+    public Airport<T> sortByMaxLoadCapacity() {
+        return new Airport<>(sortByComparator(Comparator.comparingInt(Plane::getMaxLoadCapacity)));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Airport {
                 '}';
     }
 
-    private <T extends Plane> List<T> getPlanesByClass(Class<T> planeClass) {
+    private <E extends Plane> List<E> getPlanesByClass(Class<E> planeClass) {
         return planes.stream()
                 .filter(planeClass::isInstance)
                 .map(planeClass::cast)
@@ -74,6 +74,12 @@ public class Airport {
     private List<MilitaryPlane> getMilitaryPlanesByType(MilitaryType militaryType) {
         return getMilitaryPlanes().stream()
                 .filter(militaryPlane -> militaryPlane.getMilitaryType() == militaryType)
+                .collect(Collectors.toList());
+    }
+
+    private List<T> sortByComparator(Comparator<T> comparator) {
+        return planes.stream()
+                .sorted(comparator)
                 .collect(Collectors.toList());
     }
 
